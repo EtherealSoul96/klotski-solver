@@ -190,7 +190,7 @@ print(espacios_vacios)
 #        coordenada_valor = 1
 
 #----------------------------------------------------------------------------
-for i in range (50):
+for i in range (10000):
     if i==9999:
         print(tablero,lista_movimientos)
     v0=h0=0
@@ -248,38 +248,36 @@ for i in range (50):
                 lista_movimientos.append("ll")
                 mov2 = "lr"
     # horizontal <--- --->
-    elif yh==y01 and (((xh==x01-2 or xh==x02-2) and not "hr" in lista_movimientos) or (xh==x01+1 or xh==x02+1) and not "hl" in lista_movimientos):
-            if xh==x01-2:
-                xh=xh+1
-                x01=x01-2
-                lista_movimientos.append("hr")
-                mov2 = "hl"
-            elif xh==x02-2:
-                xh=xh+1
-                x02=x02-2
-                lista_movimientos.append("hr")
-                mov2 = "hl"
-            elif xh==x01+1:
-                xh=xh-1
-                x01=x01+2
-                lista_movimientos.append("hl")
-                mov2 = "hr"
-            elif xh==x02+1:
-                xh=xh-1
-                x02=x02+2
-                lista_movimientos.append("hl")
-                mov2 = "hr"
-            print(lista_movimientos,'  ',tablero,"fsldjfsgasaogaosdg")
+    elif yh == y01 and xh == x01 - 2 and not "hr" in lista_movimientos:
+        xh = xh + 1
+        x01 = x01 - 2
+        lista_movimientos.append("hr")
+        mov2 = "hl"
+    elif yh == y02 and xh == x02 - 2 and not "hr" in lista_movimientos:
+        xh = xh + 1
+        x02 = x02 - 2
+        lista_movimientos.append("hr")
+        mov2 = "hl"
+    elif yh == y01 and xh == x01 + 1 and not "hl" in lista_movimientos:
+        xh = xh - 1
+        x01 = x01 + 2
+        lista_movimientos.append("hl")
+        mov2 = "hr"
+    elif yh == y02 and xh == x02 + 1 and not "hl" in lista_movimientos:
+        xh = xh - 1
+        x02 = x02 + 2
+        lista_movimientos.append("hl")
+        mov2 = "hr"
     #doble-----------------------------------------------
     elif yv1==v0 and (xv1==x01-1 and not "v1r" in lista_movimientos or xv1==x01+1 and not "v1l" in lista_movimientos):
-        xv1,y01,y02,mov2=verticales_doble(xv1,x01,x02,"v1r","v1l")
+        xv1,x01,x02,mov2=verticales_doble(xv1,x01,x02,"v1r","v1l")
     elif yv2==v0 and (xv2==x01-1 and not "v2r" in lista_movimientos or xv2==x01+1 and not "v2l" in lista_movimientos):
-        xv2,y01,y02,mov2=verticales_doble(xv2,x01,x02,"v2r","v2l")
+        xv2,x01,x02,mov2=verticales_doble(xv2,x01,x02,"v2r","v2l")
     elif yv3==v0 and (xv3==x01-1 and not "v3r" in lista_movimientos or xv3==x01+1 and not "v3l" in lista_movimientos):
         print(yv3,v0,tablero)
-        xv3,y01,y02,mov2=verticales_doble(xv3,x01,x02,"v3r","v3l")
+        xv3,x01,x02,mov2=verticales_doble(xv3,x01,x02,"v3r","v3l")
     elif yv4==v0 and (xv4==x01-1 and not "v4r" in lista_movimientos or xv4==x01+1 and not "v4l" in lista_movimientos):
-        xv4,y01,y02,mov2=verticales_doble(xv4,x01,x02,"v4r","v4l")
+        xv4,x01,x02,mov2=verticales_doble(xv4,x01,x02,"v4r","v4l")
     #simples-------------------------------------------
     elif xv1==x01 and (yv1==y01-2 and not "v1u" in lista_movimientos or yv1==y01+1 and not "v1d" in lista_movimientos):#----------------------------------------------------   -1 o -2?????
         yv1,y01,mov2=verticales_simple(yv1,y01,"v1u","v1d")
@@ -355,6 +353,12 @@ for i in range (50):
         lista_movimientos.append(mov2)
         dic_tableros[tablero] = lista_movimientos
     no_jugada=False
+
+    if xl == 2 and yl==4:
+        print(lista_movimientos, '   ', tablero, x, '  ', i)
+        print("won!!!")
+        break
+
     #espacios_vacios = [([x01], [y01]), ([x02], [y02])]
 #        dic_tableros.append(*movimiento*) s1u
     #print(tablero,espacios_vacios)
